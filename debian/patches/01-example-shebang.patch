@@ -1,0 +1,331 @@
+Author: Mike Markley <mike@markley.org>
+Description: Fixes shebangs in examples (Closes: #152367).
+
+--- expect-5.44.1.15.orig/example/archie
++++ expect-5.44.1.15/example/archie
+@@ -1,4 +1,4 @@
+-#!../expect -f
++#!/usr/bin/expect -f
+ 
+ # archie
+ 
+--- expect-5.44.1.15.orig/example/autoexpect
++++ expect-5.44.1.15/example/autoexpect
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ # Name: autoexpect - generate an Expect script from watching a session
+ #
+ # Description:
+--- expect-5.44.1.15.orig/example/autopasswd
++++ expect-5.44.1.15/example/autopasswd
+@@ -1,4 +1,4 @@
+-#!../expect -f
++#!/usr/bin/expect -f
+ # wrapper to make passwd(1) be non-interactive
+ # username is passed as 1st arg, passwd as 2nd
+ 
+--- expect-5.44.1.15.orig/example/beer.exp
++++ expect-5.44.1.15/example/beer.exp
+@@ -1,4 +1,4 @@
+-#!/depot/path/expect -f
++#!/usr/bin/expect -f
+ 
+ # 99 bottles of beer on the wall, Expect-style
+ # Author: Don Libes <libes@nist.gov>
+--- expect-5.44.1.15.orig/example/chess.exp
++++ expect-5.44.1.15/example/chess.exp
+@@ -1,4 +1,4 @@
+-#!../expect -f
++#!/usr/bin/expect -f
+ # expect script to connect two UNIX chess programs together.
+ # written by Don Libes - May 9, 1990
+ 
+--- expect-5.44.1.15.orig/example/cryptdir
++++ expect-5.44.1.15/example/cryptdir
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ # Name: cryptdir
+ # Author: Don Libes, NIST
+ #
+--- expect-5.44.1.15.orig/example/decryptdir
++++ expect-5.44.1.15/example/decryptdir
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ # Name: cryptdir
+ # Author: Don Libes, NIST
+ #
+--- expect-5.44.1.15.orig/example/dislocate
++++ expect-5.44.1.15/example/dislocate
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ # dislocate - allow disconnection and reconnection to a background program
+ # Author: Don Libes, NIST
+ 
+--- expect-5.44.1.15.orig/example/dvorak
++++ expect-5.44.1.15/example/dvorak
+@@ -1,4 +1,4 @@
+-#!../expect -f
++#!/usr/bin/expect -f
+ # simulate a dvorak keyboard
+ # Actually just the lowercase letters are mapped to show the basic idea.
+ # Really, uppercase and control should probably be mapped too.
+--- expect-5.44.1.15.orig/example/expectd.proto
++++ expect-5.44.1.15/example/expectd.proto
+@@ -1,4 +1,4 @@
+-#!/depot/tcl/src/expect/e --
++#!/usr/bin/expectk -f
+ # Description: Simple fragment to begin a telnet daemon
+ # For more information, see Chapter 17 of "Exploring Expect"
+ # Author: Don Libes, NIST
+--- expect-5.44.1.15.orig/example/ftp-inband
++++ expect-5.44.1.15/example/ftp-inband
+@@ -1,4 +1,4 @@
+-#!../expect -f
++#!/usr/bin/expect -f
+ # ftp-inband - copy files over a telnet/rlogin/etc link
+ # Author: Don Libes, NIST
+ # Date: Jan 11, 1993
+--- expect-5.44.1.15.orig/example/ftp-rfc
++++ expect-5.44.1.15/example/ftp-rfc
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ 
+ # ftp-rfc <rfc-number>
+ # ftp-rfc -index
+--- expect-5.44.1.15.orig/example/gethostbyaddr
++++ expect-5.44.1.15/example/gethostbyaddr
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ #
+ # gethostbyaddr a.b.c.d - translate an internet address to a FQDN,
+ #			  guessing (a lot) if necessary.
+--- expect-5.44.1.15.orig/example/irsh
++++ expect-5.44.1.15/example/irsh
+@@ -1,4 +1,4 @@
+-#!/depot/path/expect --
++#!/usr/bin/expect --
+ 
+ # Do rsh interactively.  For example, consider the following command:
+ #    rsh <remote> ls -l "|" more
+--- expect-5.44.1.15.orig/example/kibitz
++++ expect-5.44.1.15/example/kibitz
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ # allow another user to share a shell (or other program) with you
+ # See kibitz(1) man page for complete info.
+ # Author: Don Libes, NIST
+--- expect-5.44.1.15.orig/example/lpunlock
++++ expect-5.44.1.15/example/lpunlock
+@@ -1,4 +1,4 @@
+-#!../expect -f
++#!/usr/bin/expect -f
+ 
+ # This script unhangs a printer which claims it is "waiting for lock".
+ # Written by Don Libes.  Based on English instructions from Scott Paisley.
+--- expect-5.44.1.15.orig/example/mkpasswd
++++ expect-5.44.1.15/example/mkpasswd
+@@ -1,4 +1,4 @@
+-#!/depot/path/expect --
++#!/usr/bin/expect --
+ # mkpasswd - make a password, if username given, set it.
+ # Author: Don Libes, NIST
+ 
+--- expect-5.44.1.15.orig/example/multixterm
++++ expect-5.44.1.15/example/multixterm
+@@ -1,4 +1,4 @@
+-#!/depot/path/expectk
++#!/usr/bin/expectk
+ #
+ # NAME
+ #	multixterm - drive multiple xterms separately or together
+--- expect-5.44.1.15.orig/example/passmass
++++ expect-5.44.1.15/example/passmass
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ # passmass: change password on many machines
+ # Synopsis: passmass host1 host2 host3 ....
+ # Don Libes - March 11, 1991
+--- expect-5.44.1.15.orig/example/passwd.cgi
++++ expect-5.44.1.15/example/passwd.cgi
+@@ -1,4 +1,4 @@
+-#!/depot/path/expect --
++#!/usr/bin/expect --
+ 
+ # This is a CGI script to process requests created by the accompanying
+ # passwd.html form.  This script is pretty basic, although it is
+--- expect-5.44.1.15.orig/example/passwdprompt
++++ expect-5.44.1.15/example/passwdprompt
+@@ -1,4 +1,4 @@
+-#!/depot/path/expect
++#!/usr/bin/expect
+ 
+ # This script prompts for a passwd from stdin while echoing *'s
+ 
+--- expect-5.44.1.15.orig/example/read1char
++++ expect-5.44.1.15/example/read1char
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ 
+ # read a single character
+ # Author: Don Libes, NIST
+--- expect-5.44.1.15.orig/example/reprompt
++++ expect-5.44.1.15/example/reprompt
+@@ -1,4 +1,4 @@
+-#!/depot/path/expect --
++#!/usr/bin/expect --
+ 
+ # Name: reprompt
+ # Description: reprompt every so often until user enters something
+--- expect-5.44.1.15.orig/example/rftp
++++ expect-5.44.1.15/example/rftp
+@@ -1,4 +1,4 @@
+-#!../expect -f
++#!/usr/bin/expect -f
+ # rftp - ftp a directory hierarchy (i.e. recursive ftp)
+ # Version 2.10
+ # Don Libes, NIST
+--- expect-5.44.1.15.orig/example/rlogin-cwd
++++ expect-5.44.1.15/example/rlogin-cwd
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ # rlogin-cwd - rlogin but with same directory
+ #
+ # You can extend this idea to save any arbitrary information across rlogin
+--- expect-5.44.1.15.orig/example/robohunt
++++ expect-5.44.1.15/example/robohunt
+@@ -1,4 +1,4 @@
+-#!../expect -f
++#!/usr/bin/expect -f
+ # Synopsis
+ #    robohunt player-name [-nodisplay]
+ 
+--- expect-5.44.1.15.orig/example/rogue.exp
++++ expect-5.44.1.15/example/rogue.exp
+@@ -1,4 +1,4 @@
+-#!../expect -f
++#!/usr/bin/expect -f
+ # Look for a GREAT game of rogue.
+ # Idea is that any game with a Strength of 18 is unusually good.
+ # Written by Don Libes - March, 1990
+--- expect-5.44.1.15.orig/example/telnet-cwd
++++ expect-5.44.1.15/example/telnet-cwd
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ # telnet-cwd - telnet but with same directory
+ #
+ # You can extend this idea to save any arbitrary information across telnet
+--- expect-5.44.1.15.orig/example/term_expect
++++ expect-5.44.1.15/example/term_expect
+@@ -1,4 +1,4 @@
+-#!/depot/path/expectk
++#!/usr/bin/expectk
+ 
+ # Name: tkterm - terminal emulator using Expect and Tk text widget, v3.0
+ # Author: Don Libes, July '94
+--- expect-5.44.1.15.orig/example/timed-read
++++ expect-5.44.1.15/example/timed-read
+@@ -1,4 +1,4 @@
+-#!../expect -f
++#!/usr/bin/expect -f
+ # read a complete line from stdin
+ # aborting after the number of seconds (given as an argument)
+ # - Don Libes
+--- expect-5.44.1.15.orig/example/timed-run
++++ expect-5.44.1.15/example/timed-run
+@@ -1,4 +1,4 @@
+-#!../expect -f
++#!/usr/bin/expect -f
+ # run a program for a given amount of time
+ # i.e. time 20 long_running_program
+ 
+--- expect-5.44.1.15.orig/example/tknewsbiff
++++ expect-5.44.1.15/example/tknewsbiff
+@@ -1,4 +1,4 @@
+-#!/depot/path/expectk
++#!/usr/bin/expectk
+ 
+ # Name: tknewsbiff
+ # Author: Don Libes
+--- expect-5.44.1.15.orig/example/tkpasswd
++++ expect-5.44.1.15/example/tkpasswd
+@@ -1,4 +1,4 @@
+-#!/depot/path/expectk -f
++#!/usr/bin/expectk -f
+ # tkpasswd - Change passwords using Expectk
+ # Author: Don Libes, NIST, October 1, 1993
+ # Version: 1.8 - Added support for Tk 4.1
+--- expect-5.44.1.15.orig/example/tkterm
++++ expect-5.44.1.15/example/tkterm
+@@ -1,4 +1,4 @@
+-#!/depot/path/expectk
++#!/usr/bin/expectk
+ 
+ # Name: tkterm - terminal emulator using Expect and Tk text widget, v3.0
+ # Author: Don Libes, July '94
+--- expect-5.44.1.15.orig/example/unbuffer
++++ expect-5.44.1.15/example/unbuffer
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ # Description: unbuffer stdout of a program
+ # Author: Don Libes, NIST
+ 
+--- expect-5.44.1.15.orig/example/virterm
++++ expect-5.44.1.15/example/virterm
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ 
+ # Name: virterm - terminal emulator using Expect, v1.0, December, 1994
+ # Author: Adrian Mariano <adrian@cam.cornell.edu>
+--- expect-5.44.1.15.orig/example/vrfy
++++ expect-5.44.1.15/example/vrfy
+@@ -1,4 +1,4 @@
+-#!/depot/path/expect -f
++#!/usr/bin/expect -f
+ 
+ 
+ # separate address into user and host
+--- expect-5.44.1.15.orig/example/weather
++++ expect-5.44.1.15/example/weather
+@@ -1,4 +1,4 @@
+-#!../expect -f
++#!/usr/bin/expect -f
+ 
+ # weather - Expect script to get the weather (courtesy University of Michigan)
+ # Don Libes
+--- expect-5.44.1.15.orig/example/xkibitz
++++ expect-5.44.1.15/example/xkibitz
+@@ -1,4 +1,4 @@
+-#!../expect --
++#!/usr/bin/expect --
+ 
+ # share an xterm with other users
+ # See xkibitz(1) man page for complete info.
+--- expect-5.44.1.15.orig/example/xpstat
++++ expect-5.44.1.15/example/xpstat
+@@ -1,4 +1,4 @@
+-#!/depot/path/expectk
++#!/usr/bin/expectk
+ 
+ # This script acts as a front-end for xpilot.  Run it in the background,
+ # and it will pop up a window for each server it finds running.  After
+--- expect-5.44.1.15.orig/example/xrlogin
++++ expect-5.44.1.15/example/xrlogin
+@@ -1,4 +1,4 @@
+-#!/depot/path/expect --
++#!/usr/bin/expect --
+ # xrlogin - rlogin but with current DISPLAY
+ #
+ # You can extend this idea to save any arbitrary information across rlogin

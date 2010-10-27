@@ -1,0 +1,15 @@
+Author: n/a
+Description: Fix header comments.
+
+--- expect-5.44.1.15.orig/tcldbgcf.h.in
++++ expect-5.44.1.15/tcldbgcf.h.in
+@@ -7,7 +7,8 @@
+ #ifndef __NIST_DBG_CF_H__
+ #define __NIST_DBG_CF_H__
+ 
+-#undef NO_STDLIB_H		/* Tcl requires this name */
++/* Tcl requires this name */
++#undef NO_STDLIB_H
+ 
+ /*
+  * Check for functions

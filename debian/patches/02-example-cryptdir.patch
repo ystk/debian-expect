@@ -1,0 +1,31 @@
+Author: Mike Markley <mike@markley.org>
+Description: Checks for /usr/bin/crypt in cryptdir example (Closes: #67197).
+
+--- expect-5.44.1.15.orig/example/cryptdir
++++ expect-5.44.1.15/example/cryptdir
+@@ -8,6 +8,11 @@
+ #
+ # Encrypt or decrypts the current directory or named directory if given.
+ 
++if {![file exists /usr/bin/crypt]} {
++    puts "This example requires the mcrypt package."
++    exit
++}
++
+ if {[llength $argv] > 0} {
+     cd $argv
+ }
+--- expect-5.44.1.15.orig/example/decryptdir
++++ expect-5.44.1.15/example/decryptdir
+@@ -8,6 +8,11 @@
+ #
+ # Encrypt or decrypts the current directory or named directory if given.
+ 
++if {![file exists /usr/bin/crypt]} {
++    puts "This example requires the mcrypt package."
++    exit
++}
++
+ if {[llength $argv] > 0} {
+     cd $argv
+ }

@@ -1,0 +1,36 @@
+Author: Sergei Golovan <sgolovan@debian.org>
+Description: Fixes processing of -norc and -NORC expectk command line options.
+Bug-Debian: http://bugs.debian.org/555746
+Bug: https://sourceforge.net/tracker/?func=detail&aid=2896150&group_id=13179&atid=113179
+Last-Update: 2009-11-12
+
+--- expect-5.44.1.15.orig/exp_main_tk.c
++++ expect-5.44.1.15/exp_main_tk.c
+@@ -112,6 +112,9 @@
+  *----------------------------------------------------------------------
+  */
+ 
++int my_rc = 1;
++int sys_rc = 1;
++
+ int
+ Tcl_AppInit(interp)
+     Tcl_Interp *interp;		/* Interpreter for application. */
+@@ -148,6 +151,8 @@
+      * they weren't already created by the init procedures called above.
+      */
+ 
++    exp_interpret_rcfiles(interp,my_rc,sys_rc);
++
+     /*
+      * Specify a user-specific startup file to invoke if the application
+      * is run interactively.  Typically the startup file is "~/.apprc"
+@@ -182,8 +187,6 @@
+ static int rest = 0;
+ 
+ /* for Expect */
+-int my_rc = 1;
+-int sys_rc = 1;
+ static int optcmd_eval();
+ static int optcmd_diagToStderr();
+ #ifdef TCL_DEBUGGER
