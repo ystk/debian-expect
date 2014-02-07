@@ -1,3 +1,22 @@
+expect (5.45-2) unstable; urgency=low
+
+  * Replaced ckalloc() call in exp_clib.c by malloc() because using the
+    ordinary free() leads to memory corruption after ckalloc() (which is
+    a macro for Tcl_Alloc()). See patches/22-segfault-with-stubs.patch
+    for segfaulting examples.
+
+ -- Sergei Golovan <sgolovan@debian.org>  Fri, 04 Nov 2011 12:14:05 +0400
+
+expect (5.45-1) unstable; urgency=low
+
+  * New upstream release.
+  * Removed unnecessary patches.
+  * Removed the expectk package because expectk was dropped from the upstream
+    distribution. See NEWS.Debian for possible workarounds.
+  * Updated package to standards version 3.9.2 (no changes needed).
+
+ -- Sergei Golovan <sgolovan@debian.org>  Wed, 17 Aug 2011 21:50:29 +0400
+
 expect (5.44.1.15-4) unstable; urgency=low
 
   * Added patch by upstream which fixes crash during exact string matching

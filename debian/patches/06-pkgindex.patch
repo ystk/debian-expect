@@ -1,38 +1,34 @@
 Author: Michael A. Cleverly <michael@cleverly.com>, Sergei Golovan <sgolovan@debian.org>
 Description:
- Fixes stupid typo in pkgIndex.in (Closes: #186179).
  Adjusted for new soname (Closes: #381052).
  Replaced [package require Expect] by direct loading libexpect library in all tests
  because package management can't load the library from its build location.
 Last-Modified: 2009-11-18
 
---- expect-5.44.1.15.orig/Makefile.in
-+++ expect-5.44.1.15/Makefile.in
-@@ -330,8 +330,10 @@
- 	( echo pkg_mkIndex . $(PKG_LIB_FILE) \; exit; ) | $(TCLSH)
- 
+--- expect-5.45.orig/Makefile.in
++++ expect-5.45/Makefile.in
+@@ -331,7 +331,7 @@
  pkgIndex.tcl-hand:
--	(echo 'package ifneeded Expect $(PACKAGE_VERSION) \
+ 	(echo 'if {![package vsatisfies [package provide Tcl] @TCL_VERSION@]} {return}' ; \
+ 	 echo 'package ifneeded Expect $(PACKAGE_VERSION) \
 -	    [list load [file join $$dir $(PKG_LIB_FILE)]]'\
-+	(echo 'if {[package vcompare [info tclversion] @TCL_VERSION@] < 0} return' ; \
-+	 echo '' ; \
-+	 echo 'package ifneeded Expect $(PACKAGE_VERSION) \
 +	    [list load [file join @prefix@ lib libexpect.so.@PACKAGE_VERSION@]]'\
  	) > pkgIndex.tcl
  
  #========================================================================
---- expect-5.44.1.15.orig/pkgIndex.in
-+++ expect-5.44.1.15/pkgIndex.in
-@@ -7,4 +7,6 @@
- # script is sourced, the variable $dir must contain the
- # full path name of this file's directory.
+--- expect-5.45.orig/tests/all.tcl
++++ expect-5.45/tests/all.tcl
+@@ -7,7 +7,7 @@
+ package require tcltest
+ # do this in a way that is backward compatible for Tcl 8.3
+ namespace import ::tcltest::test ::tcltest::cleanupTests
+-package require Expect
++load [lindex [glob libexpect*.so] 0]
  
-+if {[package vcompare [info tclversion] @TCL_VERSION@] < 0} return
-+
--package ifneeded Expect @EXP_VERSION_FULL@ [list load [file join $dir .. @EXP_SHARED_LIB_FILE@]]
-+package ifneeded Expect @EXP_VERSION_FULL@ [list load [file join @prefix@ lib libexpect.so.@PACKAGE_VERSION@]]
---- expect-5.44.1.15.orig/tests/cat.test
-+++ expect-5.44.1.15/tests/cat.test
+ set ::tcltest::testSingleFile false
+ set ::tcltest::testsDirectory [file dirname [info script]]
+--- expect-5.45.orig/tests/cat.test
++++ expect-5.45/tests/cat.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests
@@ -42,8 +38,8 @@ Last-Modified: 2009-11-18
  
  #exp_internal -f /dev/ttyp5 0
  
---- expect-5.44.1.15.orig/tests/expect.test
-+++ expect-5.44.1.15/tests/expect.test
+--- expect-5.45.orig/tests/expect.test
++++ expect-5.45/tests/expect.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests
@@ -53,8 +49,8 @@ Last-Modified: 2009-11-18
  
  catch {unset x}
  
---- expect-5.44.1.15.orig/tests/logfile.test
-+++ expect-5.44.1.15/tests/logfile.test
+--- expect-5.45.orig/tests/logfile.test
++++ expect-5.45/tests/logfile.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests
@@ -64,8 +60,8 @@ Last-Modified: 2009-11-18
  
  test logfile-1.1 {basic logfile} {
      set filename /tmp/logfile.[pid]
---- expect-5.44.1.15.orig/tests/pid.test
-+++ expect-5.44.1.15/tests/pid.test
+--- expect-5.45.orig/tests/pid.test
++++ expect-5.45/tests/pid.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests
@@ -75,8 +71,8 @@ Last-Modified: 2009-11-18
  
  catch {unset x}
  
---- expect-5.44.1.15.orig/tests/send.test
-+++ expect-5.44.1.15/tests/send.test
+--- expect-5.45.orig/tests/send.test
++++ expect-5.45/tests/send.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests
@@ -86,8 +82,8 @@ Last-Modified: 2009-11-18
  
  log_user 0
  
---- expect-5.44.1.15.orig/tests/spawn.test
-+++ expect-5.44.1.15/tests/spawn.test
+--- expect-5.45.orig/tests/spawn.test
++++ expect-5.45/tests/spawn.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests
@@ -97,8 +93,8 @@ Last-Modified: 2009-11-18
  
  log_user 0
  
---- expect-5.44.1.15.orig/tests/stty.test
-+++ expect-5.44.1.15/tests/stty.test
+--- expect-5.45.orig/tests/stty.test
++++ expect-5.45/tests/stty.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests

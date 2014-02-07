@@ -1,6 +1,5 @@
 01-example-shebang.patch
 02-example-cryptdir.patch
-#03-spawn.patch
 05-makefile-soname.patch
 06-pkgindex.patch
 07-file-handle.patch
@@ -9,10 +8,6 @@
 11-ttyname.patch
 12-fdout.patch
 13-implicit-defs.patch
-15-comments.patch
 16-logfile.patch
-17-norc.patch
 18-non-linux.patch
-19-tk-init.patch
-20-two-asterisks.patch
-21-match.patch
+22-segfault-with-stubs.patch

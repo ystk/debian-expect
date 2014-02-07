@@ -1,8 +1,8 @@
 Author: n/a
 Description: Fixes sample expect shebang and excapes dashes.
 
---- expect-5.44.1.15.orig/expect.man
-+++ expect-5.44.1.15/expect.man
+--- expect-5.45.orig/expect.man
++++ expect-5.45/expect.man
 @@ -108,11 +108,11 @@
  may also be invoked implicitly on systems which support the #! notation
  by marking the script executable, and making the first line in your script:

@@ -12,7 +12,7 @@
 # See the file "license.terms" for information on usage and redistribution
 # of this file, and for a DISCLAIMER OF ALL WARRANTIES.
 #
-# RCS: @(#) $Id: Makefile.in,v 5.45 2008/10/03 17:05:14 andreas_kupries Exp $
+# RCS: @(#) $Id: Makefile.in,v 5.51 2010/09/30 17:14:07 andreas_kupries Exp $
 
 #========================================================================
 #========================================================================
@@ -103,7 +103,7 @@ PKG_LIB_FILE	= @PKG_LIB_FILE@
 PKG_STUB_LIB_FILE = @PKG_STUB_LIB_FILE@
 
 lib_BINARIES	= $(PKG_LIB_FILE)
-bin_BINARIES	= expect expectk
+bin_BINARIES	= expect
 BINARIES	= $(lib_BINARIES) $(bin_BINARIES)
 
 SHELL		= @SHELL@
@@ -154,8 +154,6 @@ STLIB_LD	= @STLIB_LD@
 TCL_DEFS	= @TCL_DEFS@
 TCL_BIN_DIR	= @TCL_BIN_DIR@
 TCL_SRC_DIR	= @TCL_SRC_DIR@
-# This is necessary for packages that use private Tcl headers
-TCL_TOP_DIR_NATIVE	= @TCL_TOP_DIR_NATIVE@
 # Not used, but retained for reference of what libs Tcl required
 TCL_LIBS	= @TCL_LIBS@
 
@@ -175,7 +173,7 @@ TCLSH_PROG	= @TCLSH_PROG@
 TCLSH		= $(TCLSH_ENV) $(TCLSH_PROG)
 SHARED_BUILD	= @SHARED_BUILD@
 
-INCLUDES	= @PKG_INCLUDES@ @TCL_INCLUDES@ @TK_INCLUDES@
+INCLUDES	= @PKG_INCLUDES@ @TCL_INCLUDES@
 
 PKG_CFLAGS	= @PKG_CFLAGS@
 
@@ -255,11 +253,9 @@ install-doc: doc
 	@mkdir -p $(DESTDIR)$(mandir)/man1
 	@mkdir -p $(DESTDIR)$(mandir)/man3
 	@echo "Installing documentation in $(DESTDIR)$(mandir)"
-# install Expectk man page if present
-	$(INSTALL_DATA) $(srcdir)/expectk.man $(DESTDIR)$(mandir)/man1/expectk.1 ; \
 # install Expect man page
 	$(INSTALL_DATA) $(srcdir)/expect.man $(DESTDIR)$(mandir)/man1/expect.1
-# install man page for Expect and Expectk libraries
+# install man page for Expect library
 	$(INSTALL_DATA) $(srcdir)/libexpect.man $(DESTDIR)$(mandir)/man3/libexpect.3
 	-for i in $(SCRIPT_MANPAGE_LIST) ; do \
 	  if [ -f $(srcdir)/example/$$i.man ] ; then \
@@ -272,6 +268,9 @@ test: binaries libraries
 
 shell: binaries libraries
 	@$(TCLSH) $(SCRIPT)
+
+expectshell: binaries libraries
+	@$(TCLSH_ENV) expect $(SCRIPT)
 
 gdb:
 	$(TCLSH_ENV) gdb $(TCLSH_PROG) $(SCRIPT)
@@ -330,7 +329,8 @@ pkgIndex.tcl:
 	( echo pkg_mkIndex . $(PKG_LIB_FILE) \; exit; ) | $(TCLSH)
 
 pkgIndex.tcl-hand:
-	(echo 'package ifneeded Expect $(PACKAGE_VERSION) \
+	(echo 'if {![package vsatisfies [package provide Tcl] @TCL_VERSION@]} {return}' ; \
+	 echo 'package ifneeded Expect $(PACKAGE_VERSION) \
 	    [list load [file join $$dir $(PKG_LIB_FILE)]]'\
 	) > pkgIndex.tcl
 
@@ -339,8 +339,9 @@ pkgIndex.tcl-hand:
 # You may need to tweak this target to make it work correctly.
 #========================================================================
 
+TAR		= tar
 #COMPRESS	= tar cvf $(PKG_DIR).tar $(PKG_DIR); compress $(PKG_DIR).tar
-COMPRESS	= gtar zcvf $(PKG_DIR).tar.gz $(PKG_DIR)
+COMPRESS	= $(TAR) zcvf $(PKG_DIR).tar.gz $(PKG_DIR)
 DIST_ROOT	= /tmp/dist
 DIST_DIR	= $(DIST_ROOT)/$(PKG_DIR)
 
@@ -349,87 +350,58 @@ dist-clean:
 
 dist: dist-clean doc
 	mkdir -p $(DIST_DIR)
-	cp -p $(srcdir)/ChangeLog $(srcdir)/README* $(srcdir)/doc/license* \
+	cp -p $(srcdir)/ChangeLog $(srcdir)/README* $(srcdir)/license* \
 		$(srcdir)/aclocal.m4 $(srcdir)/configure $(srcdir)/*.in \
+		$(srcdir)/fixline1 \
 		$(DIST_DIR)/
 	chmod 664 $(DIST_DIR)/Makefile.in $(DIST_DIR)/aclocal.m4
 	chmod 775 $(DIST_DIR)/configure $(DIST_DIR)/configure.in
 
 	mkdir $(DIST_DIR)/tclconfig
 	cp $(srcdir)/tclconfig/install-sh $(srcdir)/tclconfig/tcl.m4 \
+	   $(srcdir)/tclconfig/config.guess $(srcdir)/tclconfig/config.sub \
 		$(DIST_DIR)/tclconfig/
 	chmod 664 $(DIST_DIR)/tclconfig/tcl.m4
 	chmod +x $(DIST_DIR)/tclconfig/install-sh
 
-	-list='htdocs/art demos generic library mac tests unix win tea.tests tools tools/rules'; \
+	cp -p $(srcdir)/*.{c,h,man} $(srcdir)/vgrindefs $(srcdir)/NEWS \
+		$(srcdir)/INSTALL $(srcdir)/FAQ $(srcdir)/HISTORY \
+		$(DIST_DIR)/
+	chmod 664 $(DIST_DIR)/*.{c,h,man}
+
+	-list='demos example generic library tests unix win tests testsuite'; \
 	for p in $$list; do \
 	    if test -d $(srcdir)/$$p ; then \
 		mkdir -p $(DIST_DIR)/$$p; \
-		cp -p $(srcdir)/$$p/*.* $(srcdir)/$$p/* $(DIST_DIR)/$$p/; \
+		cp -p $(srcdir)/$$p/* $(DIST_DIR)/$$p/; \
 	    fi; \
 	done
-
-	-list='doc'; \
-	for p in $$list; do \
-	    if test -d $$p ; then \
-		mkdir -p $(DIST_DIR)/$$p; \
-		cp -p $$p/*.* $$p/* $(DIST_DIR)/$$p/; \
-	    fi; \
-	done
-	-mv $(DIST_DIR)/htdocs/art $(DIST_DIR)/doc/art
-	rm -rf $(DIST_DIR)/htdocs
-
 	(cd $(DIST_ROOT); $(COMPRESS);)
-
-dist_orig:
-	rm -rf $(PKG_DIR)*
-	ls -d $(srcdir)/* > __FILES
-	mkdir $(PKG_DIR)
-	cp -rf `cat __FILES | grep -v __FILES` $(PKG_DIR)
-	rm __FILES
-	find $(PKG_DIR) -name CVS -prune -exec rm -rf {} \;
-	cd $(PKG_DIR) ; $(TCLSH_PROG) PREPARE
-	-tar cf - $(PKG_DIR) | gzip --best > $(PKG_DIR).tar.gz
-	-tar cf - $(PKG_DIR) | bzip2 > $(PKG_DIR).tar.bz2
-	-zip -r $(PKG_DIR).zip $(PKG_DIR)
-	rm -rf $(PKG_DIR)
+	cp $(DIST_ROOT)/$(PKG_DIR).tar.gz $(top_builddir)
 
 $(SCRIPTS):
 	$(TCLSH) $(srcdir)/fixline1 $(SHORT_BINDIR) < $(srcdir)/example/$@ > $@
 
-## We cannot use @TCL_LIBS@ below (after TCL_LIB_SPEC) because its
-## expansion references the contents of @LIBS@, which contains linker
+## We cannot use TCL_LIBS below (after TCL_LIB_SPEC) because its
+## expansion references the contents of LIBS, which contains linker
 ## options we cannot use here (and which is what we are replacing in
 ## the first place).
 
 expect:	exp_main_exp.o $(PKG_LIB_FILE)
 	$(CC) \
 		@CFLAGS@ \
-		@EXP_CFLAGS@ \
-		@EXP_SHLIB_CFLAGS@ \
-		@TCL_LD_FLAGS@ \
+		@LDFLAGS_DEFAULT@ \
 		-o expect exp_main_exp.o \
 		@EXP_BUILD_LIB_SPEC@ \
 		@TCL_LIB_SPEC@ \
-		@DL_LIBS@ @PKG_LIBS@ @MATH_LIBS@ \
+		@TCL_DL_LIBS@ @PKG_LIBS@ @MATH_LIBS@ \
 		@TCL_CC_SEARCH_FLAGS@ \
 		@EXP_CC_SEARCH_FLAGS@
 	$(SETUID) expect
 
-expectk: exp_main_tk.o $(PKG_LIB_FILE)
-	$(CC) \
-		@CFLAGS@ \
-		@EXP_CFLAGS@ \
-		@EXP_SHLIB_CFLAGS@ \
-		@TCL_LD_FLAGS@ \
-		-o expectk exp_main_tk.o \
-		@EXP_BUILD_LIB_SPEC@ \
-		@TK_LIB_SPEC@ \
-		@TCL_LIB_SPEC@ \
-		@TK_LIBS@ \
-		@TCL_CC_SEARCH_FLAGS@ \
-		@EXP_CC_SEARCH_FLAGS@
-	$(SETUID) expectk
+expectk:
+	@echo "expectk remove from distribution"
+	@echo "use tclsh with package require Tk and Expect"
 
 #========================================================================
 # Produce FAQ and homepage
@@ -607,9 +579,9 @@ install-bin-binaries:
 
 .SUFFIXES: .c .$(OBJEXT) .man .n .html
 
-#Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
-#	cd $(top_builddir) \
-#	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
 uninstall-binaries:
 	list='$(lib_BINARIES)'; for p in $$list; do \

@@ -1,8 +1,8 @@
 Author: n/a
 Description: Corrects permissions when accessing logfiles.
 
---- expect-5.44.1.15.orig/exp_log.c
-+++ expect-5.44.1.15/exp_log.c
+--- expect-5.45.orig/exp_log.c
++++ expect-5.45/exp_log.c
 @@ -499,7 +499,7 @@
  	Tcl_DStringAppend(&tsdPtr->logFilename,filename,-1);
      }

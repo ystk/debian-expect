@@ -1,9 +1,9 @@
 Author: n/a
 Description: Fixes some unsafe traps.
 
---- expect-5.44.1.15.orig/exp_trap.c
-+++ expect-5.44.1.15/exp_trap.c
-@@ -261,6 +261,18 @@
+--- expect-5.45.orig/exp_trap.c
++++ expect-5.45/exp_trap.c
+@@ -264,6 +264,18 @@
  #if defined(SIGSTOP)
  	traps[SIGSTOP].reserved = TRUE;
  #endif

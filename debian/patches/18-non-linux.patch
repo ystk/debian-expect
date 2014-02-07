@@ -1,25 +1,14 @@
 Author: Sergei Golovan <sgolovan@debian.org>
-Description: Fixes build for non-linux Debian architectures and removes
-	     rpath definition because it's useless as the library is
-	     installed into /usr/lib
+Description: Fixes build for non-linux Debian architectures.
 
---- expect-5.44.1.15.orig/tclconfig/tcl.m4
-+++ expect-5.44.1.15/tclconfig/tcl.m4
-@@ -1436,7 +1436,7 @@
- 	        fi
- 	    fi
+--- expect-5.45.orig/tclconfig/tcl.m4
++++ expect-5.45/tclconfig/tcl.m4
+@@ -1521,7 +1521,7 @@
+ 	        ])
+ 	    ])
  	    ;;
 -	Linux*)
 +	Linux*|GNU*)
  	    SHLIB_CFLAGS="-fPIC"
- 	    SHLIB_LD_LIBS='${LIBS}'
  	    SHLIB_SUFFIX=".so"
-@@ -1451,7 +1451,7 @@
- 	    DL_OBJS="tclLoadDl.o"
- 	    DL_LIBS="-ldl"
- 	    LDFLAGS="$LDFLAGS -Wl,--export-dynamic"
--	    CC_SEARCH_FLAGS='-Wl,-rpath,${LIB_RUNTIME_DIR}'
-+	    CC_SEARCH_FLAGS=''
- 	    LD_SEARCH_FLAGS=${CC_SEARCH_FLAGS}
- 	    if test "`uname -m`" = "alpha" ; then
- 		CFLAGS="$CFLAGS -mieee"
+ 

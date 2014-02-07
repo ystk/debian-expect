@@ -1,23 +1,9 @@
 Author: LaMont Jones <lamont@debian.org>
 Description: Fix implicit definitions throughout (Closes: #441115).
 
---- expect-5.44.1.15.orig/Dbg.c
-+++ expect-5.44.1.15/Dbg.c
-@@ -8,6 +8,7 @@
- 
- */
- 
-+#include <unistd.h>
- #include <stdio.h>
- 
- #include "tcldbgcf.h"
---- expect-5.44.1.15.orig/exp_chan.c
-+++ expect-5.44.1.15/exp_chan.c
-@@ -31,9 +31,11 @@
- 
- #include "string.h"
- 
-+#include "expect.h"
+--- expect-5.45.orig/exp_chan.c
++++ expect-5.45/exp_chan.c
+@@ -34,6 +34,7 @@
  #include "exp_rename.h"
  #include "exp_prog.h"
  #include "exp_command.h"
@@ -25,19 +11,20 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  #include "exp_log.h"
  #include "tcldbg.h" /* Dbg_StdinMode */
  
---- expect-5.44.1.15.orig/exp_clib.c
-+++ expect-5.44.1.15/exp_clib.c
-@@ -7,6 +7,8 @@
+--- expect-5.45.orig/exp_clib.c
++++ expect-5.45/exp_clib.c
+@@ -7,6 +7,9 @@
  would appreciate credit if this program or parts of it are used.
  */
  
 +#include <unistd.h>
++#include <sys/wait.h>
 +
  #include "expect_cf.h"
  #include <stdio.h>
  #include <setjmp.h>
---- expect-5.44.1.15.orig/exp_command.h
-+++ expect-5.44.1.15/exp_command.h
+--- expect-5.45.orig/exp_command.h
++++ expect-5.45/exp_command.h
 @@ -7,6 +7,9 @@
  would appreciate credit if this program or parts of it are used.
  */
@@ -89,19 +76,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  
  /*
   * Local Variables:
---- expect-5.44.1.15.orig/exp_glob.c
-+++ expect-5.44.1.15/exp_glob.c
-@@ -11,6 +11,8 @@
- 
- */
- 
-+#include <string.h>
-+
- #include "expect_cf.h"
- #include "tcl.h"
- #include "exp_int.h"
---- expect-5.44.1.15.orig/exp_main_sub.c
-+++ expect-5.44.1.15/exp_main_sub.c
+--- expect-5.45.orig/exp_main_sub.c
++++ expect-5.45/exp_main_sub.c
 @@ -2,6 +2,7 @@
  
  #include "expect_cf.h"
@@ -110,60 +86,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  #include <errno.h>
  #ifdef HAVE_INTTYPES_H
  #  include <inttypes.h>
---- expect-5.44.1.15.orig/exp_main_tk.c
-+++ expect-5.44.1.15/exp_main_tk.c
-@@ -36,12 +36,21 @@
- #undef USE_TCL_STUBS
- 
- #include <ctype.h>
-+#include <string.h>  /* strrchr(3) */
- 
--#include "tk.h"
-+#include <tclInt.h>  /* Internal definitions for Tcl. */
-+#include <tcl.h>
-+
-+#include <tk.h>
-+#include <tkInt.h>
- 
- #include "expect_tcl.h"
- #include "tcldbg.h"
- 
-+#include "expect.h"
-+#include "exp_command.h"
-+#include "exp_log.h"
-+
- #if (TCL_MAJOR_VERSION < 8) || ((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION < 4))
- /*
-  * The following variable is a special hack that is needed in order for
-@@ -55,6 +64,8 @@
- #ifdef TK_TEST
- EXTERN int		Tktest_Init _ANSI_ARGS_((Tcl_Interp *interp));
- #endif /* TK_TEST */
-+int Tk_Init2(Tcl_Interp *interp);
-+
- 
- /*
-  *----------------------------------------------------------------------
---- expect-5.44.1.15.orig/exp_trap.c
-+++ expect-5.44.1.15/exp_trap.c
-@@ -11,6 +11,7 @@
- #include "expect_cf.h"
- 
- #include <stdio.h>
-+#include <string.h>
- #include <signal.h>
- #include <sys/types.h>
- 
-@@ -28,6 +29,7 @@
- #include "exp_prog.h"
- #include "exp_command.h"
- #include "exp_log.h"
-+#include "exp_event.h"
- 
- #ifdef TCL_DEBUGGER
- #include "tcldbg.h"
---- expect-5.44.1.15.orig/exp_tty.h
-+++ expect-5.44.1.15/exp_tty.h
+--- expect-5.45.orig/exp_tty.h
++++ expect-5.45/exp_tty.h
 @@ -21,6 +21,7 @@
  int exp_tty_raw_noecho(Tcl_Interp *interp, exp_tty *tty_old, int *was_raw, int *was_echo);
  int exp_israw(void);
@@ -172,8 +96,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  
  void exp_tty_set(Tcl_Interp *interp, exp_tty *tty, int raw, int echo);
  int exp_tty_set_simple(exp_tty *tty);
---- expect-5.44.1.15.orig/exp_tty_in.h
-+++ expect-5.44.1.15/exp_tty_in.h
+--- expect-5.45.orig/exp_tty_in.h
++++ expect-5.45/exp_tty_in.h
 @@ -11,6 +11,8 @@
  #define __EXP_TTY_IN_H__
  
@@ -183,8 +107,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  
  #ifdef __MACHTEN__
  #include "sys/types.h"
---- expect-5.44.1.15.orig/exp_win.c
-+++ expect-5.44.1.15/exp_win.c
+--- expect-5.45.orig/exp_win.c
++++ expect-5.45/exp_win.c
 @@ -51,6 +51,7 @@
  #   include <sys/ptem.h>
  #endif /* HAVE_SYS_PTEM_H */
@@ -193,8 +117,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  #include "exp_tty_in.h"
  #include "exp_win.h"
  
---- expect-5.44.1.15.orig/exp_win.h
-+++ expect-5.44.1.15/exp_win.h
+--- expect-5.45.orig/exp_win.h
++++ expect-5.45/exp_win.h
 @@ -1,3 +1,5 @@
 +#ifndef __EXP_WIN_H
 +#define __EXP_WIN_H
@@ -218,27 +142,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  char* exp_win2_columns_get _ANSI_ARGS_ ((int fd));
 +
 +#endif /* __EXP_WIN_H */
---- expect-5.44.1.15.orig/expect.c
-+++ expect-5.44.1.15/expect.c
-@@ -10,6 +10,8 @@
- 
- #include <sys/types.h>
- #include <stdio.h>
-+#include <stdarg.h>
-+#include <string.h>
- #include <signal.h>
- #include <errno.h>
- #include <ctype.h>	/* for isspace */
-@@ -29,6 +31,7 @@
- 
- #include "string.h"
- 
-+#include "expect.h"
- #include "exp_rename.h"
- #include "exp_prog.h"
- #include "exp_command.h"
---- expect-5.44.1.15.orig/pty_termios.c
-+++ expect-5.44.1.15/pty_termios.c
+--- expect-5.45.orig/pty_termios.c
++++ expect-5.45/pty_termios.c
 @@ -9,12 +9,19 @@
  
  #include <stdio.h>
@@ -259,7 +164,7 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  
  /*
     The following functions are linked from the Tcl library.  They
-@@ -96,7 +103,6 @@
+@@ -99,7 +106,6 @@
  
  #include "exp_win.h"
  
@@ -267,7 +172,7 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  #include "exp_rename.h"
  #include "exp_pty.h"
  
-@@ -366,7 +372,7 @@
+@@ -369,7 +375,7 @@
  #define W_OK 02
  #endif
  

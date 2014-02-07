@@ -2,9 +2,9 @@ Author: Russell Coker <russell@coker.com.au>
 Description:
  Fixes file handle 3 to be left open when running programs (Closes: #166677).
 
---- expect-5.44.1.15.orig/exp_clib.c
-+++ expect-5.44.1.15/exp_clib.c
-@@ -2502,6 +2502,7 @@
+--- expect-5.45.orig/exp_clib.c
++++ expect-5.45/exp_clib.c
+@@ -2040,6 +2040,7 @@
  
  	/* save error fd while we're setting up new one */
  	errorfd = fcntl(2,F_DUPFD,3);
@@ -12,8 +12,8 @@ Description:
  	/* and here is the macro to restore it */
  #define restore_error_fd {close(2);fcntl(errorfd,F_DUPFD,2);}
  
---- expect-5.44.1.15.orig/exp_command.c
-+++ expect-5.44.1.15/exp_command.c
+--- expect-5.45.orig/exp_command.c
++++ expect-5.45/exp_command.c
 @@ -1162,6 +1162,7 @@
  
      /* save error fd while we're setting up new one */

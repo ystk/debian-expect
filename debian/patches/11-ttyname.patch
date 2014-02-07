@@ -3,9 +3,9 @@ Description:
  Check before call ttyname, so don't coredump in chroots without /proc
  (Closes: #440804).
 
---- expect-5.44.1.15.orig/pty_termios.c
-+++ expect-5.44.1.15/pty_termios.c
-@@ -366,6 +366,17 @@
+--- expect-5.45.orig/pty_termios.c
++++ expect-5.45/pty_termios.c
+@@ -369,6 +369,17 @@
  #define W_OK 02
  #endif
  
@@ -23,7 +23,7 @@ Description:
  int
  exp_getptymaster()
  {
-@@ -451,7 +462,7 @@
+@@ -454,7 +465,7 @@
  	master = open("/dev/ptc",O_RDWR);
  	if (master >= 0) {
  		/* never fails */
@@ -32,7 +32,7 @@ Description:
  	}
  	exp_pty_slave_name = slave_name;
  	return(master);
-@@ -472,7 +483,7 @@
+@@ -475,7 +486,7 @@
  		close(slave);
  		return -1;
  	}
