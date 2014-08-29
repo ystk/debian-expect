@@ -1,8 +1,8 @@
 Author: n/a
 Description: Fixes some unsafe traps.
 
---- expect-5.45.orig/exp_trap.c
-+++ expect-5.45/exp_trap.c
+--- a/exp_trap.c
++++ b/exp_trap.c
 @@ -264,6 +264,18 @@
  #if defined(SIGSTOP)
  	traps[SIGSTOP].reserved = TRUE;

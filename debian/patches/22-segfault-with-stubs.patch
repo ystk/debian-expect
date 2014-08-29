@@ -36,8 +36,8 @@ Example:
      return 0;
  }
 
---- expect-5.45.orig/exp_clib.c
-+++ expect-5.45/exp_clib.c
+--- a/exp_clib.c
++++ b/exp_clib.c
 @@ -117,7 +117,11 @@
  #include <stdlib.h>		/* for malloc */
  #endif
@@ -51,7 +51,7 @@ Example:
  #include "expect.h"
  #define TclRegError exp_TclRegError
  
-@@ -389,7 +389,7 @@
+@@ -392,7 +396,7 @@
  		FAIL("regexp too big");
  
  	/* Allocate space. */
@@ -60,7 +60,7 @@ Example:
  	if (r == NULL)
  		FAIL("out of space");
  
-@@ -399,7 +399,7 @@
+@@ -402,7 +406,7 @@
  	rcstate->regcode = r->program;
  	regc(MAGIC, rcstate);
  	if (reg(0, &flags, rcstate) == NULL) {

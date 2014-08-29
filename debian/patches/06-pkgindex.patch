@@ -5,8 +5,8 @@ Description:
  because package management can't load the library from its build location.
 Last-Modified: 2009-11-18
 
---- expect-5.45.orig/Makefile.in
-+++ expect-5.45/Makefile.in
+--- a/Makefile.in
++++ b/Makefile.in
 @@ -331,7 +331,7 @@
  pkgIndex.tcl-hand:
  	(echo 'if {![package vsatisfies [package provide Tcl] @TCL_VERSION@]} {return}' ; \
@@ -16,8 +16,8 @@ Last-Modified: 2009-11-18
  	) > pkgIndex.tcl
  
  #========================================================================
---- expect-5.45.orig/tests/all.tcl
-+++ expect-5.45/tests/all.tcl
+--- a/tests/all.tcl
++++ b/tests/all.tcl
 @@ -7,7 +7,7 @@
  package require tcltest
  # do this in a way that is backward compatible for Tcl 8.3
@@ -27,8 +27,8 @@ Last-Modified: 2009-11-18
  
  set ::tcltest::testSingleFile false
  set ::tcltest::testsDirectory [file dirname [info script]]
---- expect-5.45.orig/tests/cat.test
-+++ expect-5.45/tests/cat.test
+--- a/tests/cat.test
++++ b/tests/cat.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests
@@ -38,8 +38,8 @@ Last-Modified: 2009-11-18
  
  #exp_internal -f /dev/ttyp5 0
  
---- expect-5.45.orig/tests/expect.test
-+++ expect-5.45/tests/expect.test
+--- a/tests/expect.test
++++ b/tests/expect.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests
@@ -49,8 +49,8 @@ Last-Modified: 2009-11-18
  
  catch {unset x}
  
---- expect-5.45.orig/tests/logfile.test
-+++ expect-5.45/tests/logfile.test
+--- a/tests/logfile.test
++++ b/tests/logfile.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests
@@ -60,8 +60,8 @@ Last-Modified: 2009-11-18
  
  test logfile-1.1 {basic logfile} {
      set filename /tmp/logfile.[pid]
---- expect-5.45.orig/tests/pid.test
-+++ expect-5.45/tests/pid.test
+--- a/tests/pid.test
++++ b/tests/pid.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests
@@ -71,8 +71,8 @@ Last-Modified: 2009-11-18
  
  catch {unset x}
  
---- expect-5.45.orig/tests/send.test
-+++ expect-5.45/tests/send.test
+--- a/tests/send.test
++++ b/tests/send.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests
@@ -82,8 +82,8 @@ Last-Modified: 2009-11-18
  
  log_user 0
  
---- expect-5.45.orig/tests/spawn.test
-+++ expect-5.45/tests/spawn.test
+--- a/tests/spawn.test
++++ b/tests/spawn.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests
@@ -93,8 +93,8 @@ Last-Modified: 2009-11-18
  
  log_user 0
  
---- expect-5.45.orig/tests/stty.test
-+++ expect-5.45/tests/stty.test
+--- a/tests/stty.test
++++ b/tests/stty.test
 @@ -9,7 +9,7 @@
      # do this in a way that is backward compatible for Tcl 8.3
      namespace import ::tcltest::test ::tcltest::cleanupTests

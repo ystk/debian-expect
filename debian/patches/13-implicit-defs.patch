@@ -1,8 +1,8 @@
 Author: LaMont Jones <lamont@debian.org>
 Description: Fix implicit definitions throughout (Closes: #441115).
 
---- expect-5.45.orig/exp_chan.c
-+++ expect-5.45/exp_chan.c
+--- a/exp_chan.c
++++ b/exp_chan.c
 @@ -34,6 +34,7 @@
  #include "exp_rename.h"
  #include "exp_prog.h"
@@ -11,8 +11,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  #include "exp_log.h"
  #include "tcldbg.h" /* Dbg_StdinMode */
  
---- expect-5.45.orig/exp_clib.c
-+++ expect-5.45/exp_clib.c
+--- a/exp_clib.c
++++ b/exp_clib.c
 @@ -7,6 +7,9 @@
  would appreciate credit if this program or parts of it are used.
  */
@@ -23,8 +23,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  #include "expect_cf.h"
  #include <stdio.h>
  #include <setjmp.h>
---- expect-5.45.orig/exp_command.h
-+++ expect-5.45/exp_command.h
+--- a/exp_command.h
++++ b/exp_command.h
 @@ -7,6 +7,9 @@
  would appreciate credit if this program or parts of it are used.
  */
@@ -76,8 +76,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  
  /*
   * Local Variables:
---- expect-5.45.orig/exp_main_sub.c
-+++ expect-5.45/exp_main_sub.c
+--- a/exp_main_sub.c
++++ b/exp_main_sub.c
 @@ -2,6 +2,7 @@
  
  #include "expect_cf.h"
@@ -86,8 +86,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  #include <errno.h>
  #ifdef HAVE_INTTYPES_H
  #  include <inttypes.h>
---- expect-5.45.orig/exp_tty.h
-+++ expect-5.45/exp_tty.h
+--- a/exp_tty.h
++++ b/exp_tty.h
 @@ -21,6 +21,7 @@
  int exp_tty_raw_noecho(Tcl_Interp *interp, exp_tty *tty_old, int *was_raw, int *was_echo);
  int exp_israw(void);
@@ -96,8 +96,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  
  void exp_tty_set(Tcl_Interp *interp, exp_tty *tty, int raw, int echo);
  int exp_tty_set_simple(exp_tty *tty);
---- expect-5.45.orig/exp_tty_in.h
-+++ expect-5.45/exp_tty_in.h
+--- a/exp_tty_in.h
++++ b/exp_tty_in.h
 @@ -11,6 +11,8 @@
  #define __EXP_TTY_IN_H__
  
@@ -107,8 +107,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  
  #ifdef __MACHTEN__
  #include "sys/types.h"
---- expect-5.45.orig/exp_win.c
-+++ expect-5.45/exp_win.c
+--- a/exp_win.c
++++ b/exp_win.c
 @@ -51,6 +51,7 @@
  #   include <sys/ptem.h>
  #endif /* HAVE_SYS_PTEM_H */
@@ -117,8 +117,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  #include "exp_tty_in.h"
  #include "exp_win.h"
  
---- expect-5.45.orig/exp_win.h
-+++ expect-5.45/exp_win.h
+--- a/exp_win.h
++++ b/exp_win.h
 @@ -1,3 +1,5 @@
 +#ifndef __EXP_WIN_H
 +#define __EXP_WIN_H
@@ -142,8 +142,8 @@ Description: Fix implicit definitions throughout (Closes: #441115).
  char* exp_win2_columns_get _ANSI_ARGS_ ((int fd));
 +
 +#endif /* __EXP_WIN_H */
---- expect-5.45.orig/pty_termios.c
-+++ expect-5.45/pty_termios.c
+--- a/pty_termios.c
++++ b/pty_termios.c
 @@ -9,12 +9,19 @@
  
  #include <stdio.h>

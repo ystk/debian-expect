@@ -1,3 +1,43 @@
+expect (5.45-6) unstable; urgency=low
+
+  * Split the expect package into expect and tcl-expect where the libexpect
+    library and the Tcl package are moved. Made the tcl-expect package
+    multiarch same.
+  * Renamed the expect-dev package into tcl-expect-dev and moved the included
+    scripts into the main expect package.
+  * Build expect with Tcl 8.6.
+  * Use CFLAGS from the dpkg build flags. Fixed potential security bug in
+    printf format handling.
+  * Bumped the debhelper compatibility version to 9.
+  * Bumped standards version to 3.9.5.
+
+ -- Sergei Golovan <sgolovan@debian.org>  Mon, 14 Jul 2014 08:30:57 +0400
+
+expect (5.45-5) unstable; urgency=low
+
+  * Added patch which replaces memcpy my memmove for copying possibly
+    overlapping memory area, thanks to Per Cederqvist (closes: #728663).
+
+ -- Sergei Golovan <sgolovan@debian.org>  Mon, 04 Nov 2013 08:28:43 +0400
+
+expect (5.45-4) unstable; urgency=low
+
+  * Execute tclsh8.5 instead of tclsh in expect scripts because tcl8.5
+    will stop providing /usr/bin/tclsh.
+
+ -- Sergei Golovan <sgolovan@debian.org>  Sun, 06 Oct 2013 09:00:38 +0400
+
+expect (5.45-3) unstable; urgency=low
+
+  * Added conflicts header to the debian/control file which ensures that the
+    no longer existing expectk package gets removed (closes: #686364).
+  * Switched to 3.0 (quilt) source package format.
+  * Bumped debhelper compatibility level to 8.
+  * Bumped standards version to 3.9.4.
+  * Added hardening linker flags.
+
+ -- Sergei Golovan <sgolovan@debian.org>  Mon, 06 May 2013 13:34:56 +0400
+
 expect (5.45-2) unstable; urgency=low
 
   * Replaced ckalloc() call in exp_clib.c by malloc() because using the

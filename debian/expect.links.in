@@ -19,7 +19,6 @@
 #/usr/bin/expect_weather /usr/bin/weather
 /usr/bin/expect_xkibitz /usr/bin/xkibitz
 /usr/bin/expect_xpstat /usr/bin/xpstat
-/usr/lib/libexpect.so.5.45 /usr/lib/libexpect.so
 /usr/share/man/man1/expect_autoexpect.1.gz /usr/share/man/man1/autoexpect.1.gz
 /usr/share/man/man1/expect_cryptdir.1.gz /usr/share/man/man1/cryptdir.1.gz
 /usr/share/man/man1/expect_decryptdir.1.gz /usr/share/man/man1/decryptdir.1.gz

@@ -2,8 +2,8 @@ Author: Mike Markley <mike@markley.org>
 Author: Sergei Golovan <sgolovan@debian.org>
 Description: Fixes shebangs in examples (Closes: #152367).
 
---- expect-5.45.orig/example/beer.exp
-+++ expect-5.45/example/beer.exp
+--- a/example/beer.exp
++++ b/example/beer.exp
 @@ -1,4 +1,9 @@
 -#!/depot/path/expect -f
 +#!/bin/sh
@@ -15,8 +15,8 @@ Description: Fixes shebangs in examples (Closes: #152367).
  
  # 99 bottles of beer on the wall, Expect-style
  # Author: Don Libes <libes@nist.gov>
---- expect-5.45.orig/example/expectd.proto
-+++ expect-5.45/example/expectd.proto
+--- a/example/expectd.proto
++++ b/example/expectd.proto
 @@ -1,4 +1,10 @@
 -#!/depot/tcl/src/expect/e --
 +#!/bin/sh
@@ -29,8 +29,8 @@ Description: Fixes shebangs in examples (Closes: #152367).
  # Description: Simple fragment to begin a telnet daemon
  # For more information, see Chapter 17 of "Exploring Expect"
  # Author: Don Libes, NIST
---- expect-5.45.orig/example/irsh
-+++ expect-5.45/example/irsh
+--- a/example/irsh
++++ b/example/irsh
 @@ -1,4 +1,9 @@
 -#!/depot/path/expect --
 +#!/bin/sh
@@ -42,8 +42,8 @@ Description: Fixes shebangs in examples (Closes: #152367).
  
  # Do rsh interactively.  For example, consider the following command:
  #    rsh <remote> ls -l "|" more
---- expect-5.45.orig/example/passwd.cgi
-+++ expect-5.45/example/passwd.cgi
+--- a/example/passwd.cgi
++++ b/example/passwd.cgi
 @@ -1,4 +1,9 @@
 -#!/depot/path/expect --
 +#!/bin/sh
@@ -55,8 +55,8 @@ Description: Fixes shebangs in examples (Closes: #152367).
  
  # This is a CGI script to process requests created by the accompanying
  # passwd.html form.  This script is pretty basic, although it is
---- expect-5.45.orig/example/passwdprompt
-+++ expect-5.45/example/passwdprompt
+--- a/example/passwdprompt
++++ b/example/passwdprompt
 @@ -1,4 +1,9 @@
 -#!/depot/path/expect
 +#!/bin/sh
@@ -68,8 +68,8 @@ Description: Fixes shebangs in examples (Closes: #152367).
  
  # This script prompts for a passwd from stdin while echoing *'s
  
---- expect-5.45.orig/example/reprompt
-+++ expect-5.45/example/reprompt
+--- a/example/reprompt
++++ b/example/reprompt
 @@ -1,4 +1,9 @@
 -#!/depot/path/expect --
 +#!/bin/sh
@@ -81,8 +81,8 @@ Description: Fixes shebangs in examples (Closes: #152367).
  
  # Name: reprompt
  # Description: reprompt every so often until user enters something
---- expect-5.45.orig/example/term_expect
-+++ expect-5.45/example/term_expect
+--- a/example/term_expect
++++ b/example/term_expect
 @@ -1,4 +1,9 @@
 -#!/depot/path/expectk
 +#!/bin/sh
@@ -94,8 +94,8 @@ Description: Fixes shebangs in examples (Closes: #152367).
  
  # Name: tkterm - terminal emulator using Expect and Tk text widget, v3.0
  # Author: Don Libes, July '94
---- expect-5.45.orig/example/vrfy
-+++ expect-5.45/example/vrfy
+--- a/example/vrfy
++++ b/example/vrfy
 @@ -1,4 +1,9 @@
 -#!/depot/path/expect -f
 +#!/bin/sh
@@ -107,8 +107,8 @@ Description: Fixes shebangs in examples (Closes: #152367).
  
  
  # separate address into user and host
---- expect-5.45.orig/example/xrlogin
-+++ expect-5.45/example/xrlogin
+--- a/example/xrlogin
++++ b/example/xrlogin
 @@ -1,4 +1,10 @@
 -#!/depot/path/expect --
 +#!/bin/sh

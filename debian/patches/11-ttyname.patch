@@ -3,8 +3,8 @@ Description:
  Check before call ttyname, so don't coredump in chroots without /proc
  (Closes: #440804).
 
---- expect-5.45.orig/pty_termios.c
-+++ expect-5.45/pty_termios.c
+--- a/pty_termios.c
++++ b/pty_termios.c
 @@ -369,6 +369,17 @@
  #define W_OK 02
  #endif

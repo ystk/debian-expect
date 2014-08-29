@@ -1,0 +1,17 @@
+Author: Per Cederqvist <ceder@lysator.liu.se>
+Description: Fix for copying overlapping memory area.
+Last-Modified: Mon, 04 Nov 2013 08:23:51 +0400
+Bug-Debian: http://bugs.debian.org/728663
+Bug: https://sourceforge.net/p/expect/patches/16/
+
+--- a/expect.c
++++ b/expect.c
+@@ -1094,7 +1094,7 @@
+ 			/* shift remaining elements down */
+ 			/* but only if there are any left */
+ 			if (i+1 != ecmd->ecd.count) {
+-				memcpy(&ecmd->ecd.cases[i],
++				memmove(&ecmd->ecd.cases[i],
+ 				       &ecmd->ecd.cases[i+1],
+ 					((ecmd->ecd.count - i) - 1) * 
+ 					sizeof(struct exp_cmd_descriptor *));
